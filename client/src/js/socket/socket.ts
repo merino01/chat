@@ -1,4 +1,4 @@
-import { SOCKET_URL } from "../../consts";
+import { WS_URL } from "../../consts";
 import { getUsers, setUsers } from "./get-users";
 import { messageHandler } from "./message-handler";
 import { MESSAGE_TYPE } from "./message-types";
@@ -8,7 +8,7 @@ let reconnectTimeout: number | null = null;
 let reconnectAttempts = 5;
 
 export function setupWebSocket(_userId?: string, _partnerId?: string) {
-	socket = new WebSocket(SOCKET_URL);
+	socket = new WebSocket(WS_URL);
 
 	let { userId, partnerId } = getUsers();
 	userId ||= _userId || "";
