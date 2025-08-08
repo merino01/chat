@@ -5,9 +5,9 @@ export default class MessageService {
 		this.db = Database.getInstance();
 	}
 
-	createMessage(userId, partnerId, content) {
+	async createMessage(userId, partnerId, content) {
 		try {
-			this.db.execute("INSERT INTO messages (userId, partnerId, content) VALUES (?, ?, ?)", [userId, partnerId, content]);
+			await this.db.execute("INSERT INTO messages (userId, partnerId, content) VALUES (?, ?, ?)", [userId, partnerId, content]);
 			return { success: true };
 		} catch (error) {
 			console.error("Error creating message:", error);
@@ -15,19 +15,19 @@ export default class MessageService {
 		}
 	}
 
-	getMessagesByUserId(userId) {
+	async getMessagesByUserId(userId) {
 		try {
-			return this.db.select("SELECT * FROM messages WHERE userId = ?", [userId]);
+			return await this.db.select("SELECT * FROM messages WHERE userId = ?", [userId]);
 		} catch (error) {
 			console.error("Error fetching messages:", error);
 			return [];
 		}
 	}
 
-	getMessagesForPrivateChat(userId, partnerId) {
+	async getMessagesForPrivateChat(userId, partnerId) {
 		try {
 			const sql = `SELECT userId, partnerId, content, timestamp FROM messages WHERE (userId = ? AND partnerId = ?) OR (userId = ? AND partnerId = ?)`;
-			return this.db.select(sql, [userId, partnerId, partnerId, userId]);
+			return await this.db.select(sql, [userId, partnerId, partnerId, userId]);
 		} catch (error) {
 			console.error("Error fetching messages:", error);
 			return [];

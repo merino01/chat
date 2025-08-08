@@ -6,7 +6,7 @@ const handlers = {
 	user_joined: new LoginHandler()
 };
 
-export const onMessage = (server, socket, message) => {
+export const onMessage = async (server, socket, message) => {
 	let data;
 	try {
 		data = JSON.parse(message);
@@ -17,7 +17,7 @@ export const onMessage = (server, socket, message) => {
 
 	const handler = handlers[data.type];
 	if (handler) {
-		handler.handle(server, socket, data);
+		await handler.handle(server, socket, data);
 	}
 };
 

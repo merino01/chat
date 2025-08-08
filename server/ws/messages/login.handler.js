@@ -2,11 +2,11 @@ import MessageService from "../../services/messages.service.js";
 import { addUserSocket } from "../connected-users.js";
 
 export default class LoginHandler {
-	handle(server, socket, data) {
+	async handle(server, socket, data) {
 		const { userId, partnerId } = data;
 
 		const messageService = new MessageService();
-		const messages = messageService.getMessagesForPrivateChat(userId, partnerId);
+		const messages = await messageService.getMessagesForPrivateChat(userId, partnerId);
 
 		socket.send(JSON.stringify({
 			type: "user_joined",

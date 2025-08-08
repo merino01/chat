@@ -1,5 +1,5 @@
 export class MessageHandler {
-	handle(server, socket, data) {
+	async handle(server, socket, data) {
 		throw new Error("Mensaje no implementado");
 	}
 }

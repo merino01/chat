@@ -3,11 +3,11 @@ import MessageService from "../../services/messages.service.js";
 import { getUserSocket } from "../connected-users.js";
 
 export default class ChatMessageHandler extends MessageHandler {
-	handle(server, socket, data) {
+	async handle(server, socket, data) {
 		const { id, userId, partnerId, content } = data;
 
 		const messageService = new MessageService();
-		const { success, error } = messageService.createMessage(userId, partnerId, content);
+		const { success, error } = await messageService.createMessage(userId, partnerId, content);
 		if (!success) {
 			console.error('Error creating message:', error);
 			return;

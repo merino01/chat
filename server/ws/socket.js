@@ -12,8 +12,8 @@ function onConnection(server, socket) {
 	socket.id = randomUUID();
 	console.log('New client connected: ' + socket.id);
 
-	socket.on('message', (message) => {
-		onMessage(server, socket, message);
+	socket.on('message', async (message) => {
+		await onMessage(server, socket, message);
 	});
 
 	socket.on('close', () => {
